@@ -2,18 +2,27 @@ pipeline {
   agent any
 
   stages {
-      stage('Build Artifact') {
+      stage('git version') {
             steps {
-              sh "mvn clean package -DskipTests=true"
-              archive 'target/*.jar' //so that they can be downloaded later
+              sh "git version"
             }
         }  
 
-       stage('Unit Test'){
+       stage('maven version'){
             steps {
-              sh "mvn test"
+              sh "mvn -v"
             }
-        }     
+        }  
+        stage('Docker version'){
+            steps {
+              sh "docker -v "
+            }
+        }    
+        stage('Kubernetes version'){
+            steps {
+              sh "kubectl -version"
+            }
+        } 
     }
  
 }
