@@ -1,6 +1,8 @@
 pipeline {
   agent any
-
+   environment {
+        KUBECONFIG = "${HOME}/.kube/config"  
+    }
   stages {
       stage('Clone Repo') {
             steps {
@@ -26,9 +28,9 @@ pipeline {
         }    
         stage('Kubernetes version'){
             steps {
-              
+              withKubeConfig([credentialsId: 'config']) {
               sh "kubectl version"
-              
+              }
             }
         } 
     }
