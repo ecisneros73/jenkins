@@ -2,6 +2,12 @@ pipeline {
   agent any
 
   stages {
+      stage('Clone Repo') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/ecisneros73/jenkins/blob/jenlins/Jenkinsfile'
+            }
+        }
       stage('git version') {
             steps {
               sh "git version"
